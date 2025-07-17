@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nabila Ahmad Studio - Spritesheet AI Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f0f0f0;
+            --accent-color: #d4af37; /* Gold color */
+            --sidebar-bg: #111;
+            --text-color: #e0e0e0;
+            --header-height: 120px;
+            --sidebar-width: 300px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid var(--accent-color);
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .sidebar .subtitle {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .info-section h3 {
+            color: var(--accent-color);
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .info-section p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .info-section a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .info-section a:hover {
+            color: var(--accent-color);
+        }
+        
+        .api-key-section {
+            margin-top: auto;
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* --- Welcome Notification --- */
+        .welcome-bar {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            text-align: center;
+            padding: 8px 0;
+            font-weight: bold;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        /* --- Header --- */
+        .header {
+            padding: 20px 40px;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid #333;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+
+        .header h1 span {
+            color: var(--accent-color);
+        }
+
+        /* --- Generator Area --- */
+        .generator-container {
+            flex-grow: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            display: flex;
+            gap: 40px;
+        }
+
+        .controls, .preview {
+            flex: 1;
+            background-color: #222;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        
+        .controls h3, .preview h3 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="password"],
+        .input-group input[type="number"],
+        .input-group input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        
+        .input-group input::placeholder {
+            color: #888;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .input-group input[type="file"] {
+            padding: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #b89b31;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            color: #888;
+        }
+        
+        .preview-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+            border: 2px dashed #444;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        
+        #gif-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+        }
+
+        #status {
+            text-align: center;
+            margin-top: 15px;
+            color: #aaa;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>Nabila Ahmad</h2>
+        <p class="subtitle">Studio Development</p>
+
+        <div class="info-section">
+            <h3>DEVELOPER</h3>
+            <p>Skrip ini dirancang dan dikembangkan untuk membantu para kreator dan developer dalam mengolah aset game atau animasi.</p>
+        </div>
+
+        <div class="info-section">
+            <h3>INFORMASI & KONTAK</h3>
+            <p><strong>WhatsApp Admin:</strong><br><a href="https://wa.me/6285810526151" target="_blank">085810526151</a></p>
+            <p style="margin-top: 15px;"><strong>Payment (Gopay):</strong><br>0895340205302</p>
+        </div>
+
+        <div class="info-section api-key-section">
+            <h3>Kunci API Hugging Face</h3>
+            <p>Masukkan kunci API Anda untuk mengaktifkan fitur AI. Kunci akan disimpan di browser Anda.</p>
+            <div class="input-group" style="margin-top: 15px;">
+                <input type="password" id="api-key-input" placeholder="Masukkan kunci API di sini...">
+                <button id="save-api-key-btn">Simpan Kunci</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="welcome-bar">
+            <marquee>✨ Selamat Datang di Nabila Ahmad Studio Development Spritesheet AI Generator! ✨</marquee>
+        </div>
+
+        <header class="header">
+            <h1>Spritesheet to <span>GIF</span> Generator</h1>
+        </header>
+
+        <div class="generator-container">
+            <!-- Controls Column -->
+            <div class="controls">
+                <h3>Pengaturan Konversi</h3>
+                
+                <div class="input-group">
+                    <label for="spritesheet-file">1. Unggah Spritesheet</label>
+                    <input type="file" id="spritesheet-file" accept="image/*">
+                </div>
+
+                <div class="input-group">
+                    <label for="cols">2. Jumlah Kolom (Frames per Baris)</label>
+                    <input type="number" id="cols" value="8">
+                </div>
+                
+                <div class="input-group">
+                    <label for="rows">3. Jumlah Baris</label>
+                    <input type="number" id="rows" value="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="frame-delay">4. Kecepatan (ms per frame)</label>
+                    <input type="number" id="frame-delay" value="100">
+                </div>
+
+                <button id="generate-gif-btn" disabled>Buat GIF</button>
+            </div>
+
+            <!-- Preview Column -->
+            <div class="preview">
+                <h3>Hasil GIF</h3>
+                <div class="preview-area">
+                    <img id="gif-preview" src="" alt="Hasil GIF akan muncul di sini">
+                </div>
+                <p id="status">Silakan unggah spritesheet dan atur parameter untuk memulai.</p>
+                <a id="download-link" href="#" download="animation.gif">
+                    <button id="download-btn" style="display: none;">Unduh GIF</button>
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Library untuk membuat GIF. Diletakkan di sini agar tidak memblokir render halaman. -->
+    <script src="https://cdn.jsdelivr.net/npm/gif.js/dist/gif.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Elemen DOM ---
+            const apiKeyInput = document.getElementById('api-key-input');
+            const saveApiKeyBtn = document.getElementById('save-api-key-btn');
+            const fileInput = document.getElementById('spritesheet-file');
+            const colsInput = document.getElementById('cols');
+            const rowsInput = document.getElementById('rows');
+            const delayInput = document.getElementById('frame-delay');
+            const generateBtn = document.getElementById('generate-gif-btn');
+            const statusEl = document.getElementById('status');
+            const gifPreview = document.getElementById('gif-preview');
+            const downloadBtn = document.getElementById('download-btn');
+            const downloadLink = document.getElementById('download-link');
+
+            let spritesheetImage = null;
+
+            // --- Logika Kunci API Hugging Face ---
+            // Muat kunci yang tersimpan saat halaman dibuka
+            const savedApiKey = localStorage.getItem('huggingFaceApiKey');
+            if (savedApiKey) {
+                apiKeyInput.value = savedApiKey;
+                console.log('Kunci API Hugging Face dimuat dari Local Storage.');
+            }
+
+            // Simpan kunci API ke Local Storage
+            saveApiKeyBtn.addEventListener('click', () => {
+                const apiKey = apiKeyInput.value.trim();
+                if (apiKey) {
+                    localStorage.setItem('huggingFaceApiKey', apiKey);
+                    alert('Kunci API berhasil disimpan!');
+                } else {
+                    alert('Kunci API tidak boleh kosong.');
+                }
+            });
+            
+            // --- Logika Generator ---
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        spritesheetImage = new Image();
+                        spritesheetImage.onload = () => {
+                            generateBtn.disabled = false;
+                            statusEl.textContent = 'Gambar siap. Klik "Buat GIF" untuk melanjutkan.';
+                        };
+                        spritesheetImage.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            generateBtn.addEventListener('click', () => {
+                if (!spritesheetImage) {
+                    alert('Silakan unggah file spritesheet terlebih dahulu.');
+                    return;
+                }
+
+                // Ambil nilai dari input
+                const cols = parseInt(colsInput.value, 10);
+                const rows = parseInt(rowsInput.value, 10);
+                const frameDelay = parseInt(delayInput.value, 10);
+                
+                if (isNaN(cols) || isNaN(rows) || isNaN(frameDelay) || cols <= 0 || rows <= 0 || frameDelay <= 0) {
+                    alert('Pastikan semua nilai (Kolom, Baris, Kecepatan) adalah angka positif.');
+                    return;
+                }
+                
+                statusEl.textContent = 'Memproses... mohon tunggu.';
+                generateBtn.disabled = true;
+                downloadBtn.style.display = 'none';
+
+                // Inisialisasi library GIF
+                const gif = new GIF({
+                    workers: 2,
+                    quality: 10,
+                    workerScript: 'https://cdn.jsdelivr.net/npm/gif.js/dist/gif.worker.js'
+                });
+
+                const frameWidth = spritesheetImage.width / cols;
+                const frameHeight = spritesheetImage.height / rows;
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = frameWidth;
+                canvas.height = frameHeight;
+
+                // Proses setiap frame dari spritesheet
+                for (let i = 0; i < rows; i++) {
+                    for (let j = 0; j < cols; j++) {
+                        ctx.clearRect(0, 0, frameWidth, frameHeight);
+                        ctx.drawImage(
+                            spritesheetImage,
+                            j * frameWidth,
+                            i * frameHeight,
+                            frameWidth,
+                            frameHeight,
+                            0, 0,
+                            frameWidth,
+                            frameHeight
+                        );
+                        gif.addFrame(ctx, { copy: true, delay: frameDelay });
+                    }
+                }
+
+                // Setelah selesai, render GIF
+                gif.on('finished', (blob) => {
+                    const url = URL.createObjectURL(blob);
+                    gifPreview.src = url;
+                    downloadLink.href = url;
+                    
+                    statusEl.textContent = 'GIF berhasil dibuat!';
+                    downloadBtn.style.display = 'block';
+                    generateBtn.disabled = false;
+                });
+                
+                gif.render();
+            });
+
+            /*
+            // --- CONTOH FUNGSI UNTUK MENGGUNAKAN API HUGGING FACE ---
+            // Fungsi ini adalah contoh dan perlu disesuaikan dengan model yang Anda inginkan.
+            // Anda perlu mencari model di Hugging Face Hub (misalnya, model text-to-image)
+            // dan menyesuaikan format data yang dikirim.
+            
+            async function generateImageWithHuggingFace(prompt) {
+                const apiKey = localStorage.getItem('huggingFaceApiKey');
+                if (!apiKey) {
+                    alert('Kunci API Hugging Face belum diatur. Silakan masukkan di sidebar.');
+                    return;
+                }
+
+                // Ganti URL_MODEL_API dengan endpoint model yang sesuai di Hugging Face
+                const API_URL = "URL_MODEL_API"; 
+
+                statusEl.textContent = 'Menghubungi AI...';
+                
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${apiKey}`,
+                            'Content-Type': 'application/json'
+                        },
+                        // Body permintaan harus disesuaikan dengan kebutuhan model
+                        body: JSON.stringify({ inputs: prompt }) 
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Gagal terhubung ke API: ${response.statusText}`);
+                    }
+                    
+                    // Proses respons (bisa berupa blob gambar atau format lain)
+                    const imageBlob = await response.blob();
+                    const imageUrl = URL.createObjectURL(imageBlob);
+                    
+                    // Tampilkan gambar hasil AI (misalnya, sebagai spritesheet baru)
+                    spritesheetImage = new Image();
+                    spritesheetImage.onload = () => {
+                        statusEl.textContent = 'Gambar dari AI berhasil dibuat. Atur parameter dan buat GIF.';
+                        generateBtn.disabled = false;
+                    };
+                    spritesheetImage.src = imageUrl;
+
+                } catch (error) {
+                    console.error('Error saat menggunakan API Hugging Face:', error);
+                    statusEl.textContent = `Error: ${error.message}`;
+                }
+            }
+
+            // Anda bisa menambahkan tombol atau input baru untuk memanggil fungsi ini
+            // Contoh: document.getElementById('tombol-ai').addEventListener('click', () => generateImageWithHuggingFace('sebuah prompt gambar'));
+            */
+        });
+    </script>
+</body>
+</html>
