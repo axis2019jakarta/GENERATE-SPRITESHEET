@@ -3,343 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nabila Ahmad Studio - Multi-API AI Generator</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Nabila Shop - Top Up Game Cepat, Murah & Terpercaya di Jakarta Barat</title>
+    <meta name="description" content="Nabila Shop melayani top up diamond Mobile Legends, Free Fire, dan game lainnya dengan harga termurah. Proses cepat, aman, dan berlokasi di Jl Jaya 25, Cengkareng Barat, Jakarta Barat. Dekat SMPN 249.">
+    <meta name="keywords" content="top up game, top up ml, top up ff, nabila shop, top up murah, top up jakarta barat, cengkareng, smpn 249, top up diamond">
+    <meta name="author" content="Nabila Shop">
+    <link rel="canonical" href="https://www.namadomainanda.com"> <!-- Ganti dengan domain Anda nanti -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap');
-        :root{--primary-color:#1a1a1a;--secondary-color:#f0f0f0;--accent-color:#d4af37;--sidebar-bg:#111;--text-color:#e0e0e0;--success-color:#28a745;--error-color:#dc3545;--sidebar-width:320px;}
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Roboto',sans-serif;background-color:var(--primary-color);color:var(--text-color);display:flex;height:100vh;overflow:hidden;}
-        .sidebar{width:var(--sidebar-width);min-width:var(--sidebar-width);background-color:var(--sidebar-bg);padding:30px 20px;display:flex;flex-direction:column;border-right:2px solid var(--accent-color);height:100vh;overflow-y:auto;}
-        .sidebar h2{font-family:'Playfair Display',serif;color:var(--accent-color);text-align:center;margin-bottom:10px;font-size:1.8rem;}
-        .sidebar .subtitle{text-align:center;font-size:0.8rem;color:#aaa;margin-bottom:30px;}
-        .info-section{margin-bottom:25px;}
-        .info-section h3{color:var(--accent-color);border-bottom:1px solid #444;padding-bottom:10px;margin-bottom:15px;font-size:1.2rem;}
-        .info-section p{font-size:0.9rem;line-height:1.6;color:#ccc;}
-        .api-management{margin-top:auto;}
-        .main-content{flex-grow:1;display:flex;flex-direction:column;height:100vh;}
-        .welcome-bar{background-color:var(--accent-color);color:var(--primary-color);text-align:center;padding:8px 0;font-weight:bold;font-size:0.9rem;width:100%;}
-        .header{padding:20px 40px;background:rgba(10,10,10,0.5);backdrop-filter:blur(5px);border-bottom:1px solid #333;}
-        .header h1{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--secondary-color);}
-        .header h1 span{color:var(--accent-color);}
-        .generator-container{flex-grow:1;padding:30px 40px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:40px;}
-        .controls,.preview,.ai-generator{flex:1;min-width:400px;background-color:#222;padding:30px;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,0.5);display:flex;flex-direction:column;}
-        .ai-generator{flex-basis:100%;}
-        .controls h3,.preview h3,.ai-generator h3{color:var(--accent-color);margin-bottom:25px;font-size:1.5rem;font-family:'Playfair Display',serif;}
-        .input-group{margin-bottom:20px;}
-        .input-group label{display:block;margin-bottom:8px;color:#ccc;font-size:0.9rem;}
-        .input-group input,.input-group textarea,.input-group select{width:100%;padding:12px;background-color:#333;border:1px solid #555;border-radius:5px;color:var(--text-color);font-size:1rem;font-family:'Roboto',sans-serif;}
-        .input-group select{cursor:pointer;}
-        .input-group textarea{resize:vertical;min-height:60px;}
-        .input-group input:focus,.input-group textarea:focus,.input-group select:focus{outline:none;border-color:var(--accent-color);box-shadow:0 0 5px var(--accent-color);}
-        button{width:100%;padding:15px;background-color:var(--accent-color);color:var(--primary-color);border:none;border-radius:5px;font-size:1.1rem;font-weight:bold;cursor:pointer;transition:background-color 0.3s,transform 0.2s;margin-top:10px;}
-        button:hover:not(:disabled){background-color:#b89b31;transform:translateY(-2px);}
-        button:disabled{background-color:#555;cursor:not-allowed;color:#888;transform:translateY(0);}
-        .preview-area{display:flex;justify-content:center;align-items:center;min-height:250px;background-color:#1a1a1a;border-radius:5px;border:2px dashed #444;margin-bottom:20px;padding:10px;}
-        #gif-preview{max-width:100%;max-height:300px;border-radius:5px;object-fit:contain;}
-        #status, #ai-status{text-align:center;margin-top:15px;color:#aaa;font-style:italic;min-height:20px;transition:color 0.3s;}
-        .progress-container{display:none;margin-top:15px;background-color:#333;border-radius:5px;overflow:hidden;}
-        .progress-bar{width:0%;height:10px;background-color:var(--success-color);transition:width 0.3s ease;}
+        :root {
+            --bg-dark-blue: #0D1B2A;
+            --bg-surface: #1B263B;
+            --primary-teal: #41EAD4;
+            --accent-gold: #FFD23F;
+            --text-primary: #E0E1DD;
+            --text-secondary: #A9B4C2;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark-blue); color: var(--text-primary); line-height: 1.7; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--text-primary); }
+        h2.section-title { font-size: 2.8rem; text-align: center; margin-bottom: 3rem; color: var(--primary-teal); }
+        h2.section-title i { margin-right: 1rem; }
+        h3.product-category-title { font-size: 1.8rem; text-align: center; margin-top: 4rem; margin-bottom: 2rem; border-bottom: 2px solid var(--accent-gold); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 0.5rem; }
+        .header { background-color: rgba(27, 38, 59, 0.8); backdrop-filter: blur(10px); padding: 1.5rem 0; position: sticky; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--bg-surface); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--primary-teal); text-decoration: none; }
+        .nav-logo i { margin-right: 0.5rem; }
+        .nav-menu { list-style: none; display: flex; gap: 2rem; }
+        .nav-link { color: var(--text-primary); text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.3s ease; }
+        .nav-link:hover { color: var(--primary-teal); }
+        .nav-toggle { display: none; font-size: 1.8rem; color: var(--primary-teal); cursor: pointer; }
+        .hero { padding: 6rem 0; text-align: center; }
+        .hero h1 { font-size: 4rem; background: linear-gradient(45deg, var(--primary-teal), var(--accent-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem auto; color: var(--text-secondary); }
+        .btn { display: inline-block; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .btn-primary { background-color: var(--primary-teal); color: var(--bg-dark-blue); }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(65, 234, 212, 0.2); }
+        .section { padding: 6rem 0; }
+        .section-dark { background-color: var(--bg-surface); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .product-card { background-color: var(--bg-dark-blue); border: 1px solid var(--bg-surface); border-radius: 12px; padding: 1.5rem; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); border-color: var(--primary-teal); }
+        .product-title { font-size: 1.3rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 600; }
+        .product-price { font-size: 1.5rem; font-weight: 700; color: var(--primary-teal); margin-bottom: 1.5rem; }
+        .btn-order { background: none; border: 2px solid var(--primary-teal); color: var(--primary-teal); width: 100%; cursor: pointer; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; margin-top: 1rem; }
+        .btn-order:hover { background-color: var(--primary-teal); color: var(--bg-dark-blue); box-shadow: 0 8px 15px rgba(65, 234, 212, 0.2); }
+        .order-steps { display: flex; justify-content: space-around; gap: 2rem; text-align: center; margin-top: 4rem; }
+        .step { max-width: 300px; }
+        .step-icon { font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 1.5rem; }
+        .step h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-teal); }
+        .location-content { display: flex; gap: 3rem; align-items: center; margin-top: 4rem; }
+        .location-details { flex: 1; }
+        .map-container { flex: 1; height: 400px; border-radius: 12px; overflow: hidden; }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+        .footer { background-color: #0D1B2A; padding: 4rem 0; text-align: center; border-top: 1px solid var(--bg-surface); }
+        @media (max-width: 768px) { .nav-menu { display: none; } .nav-toggle { display: block; } .hero h1 { font-size: 3rem; } h2.section-title { font-size: 2.2rem; } .order-steps, .location-content { flex-direction: column; } .map-container { width: 100%; height: 350px; } }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <h2>Nabila Ahmad</h2>
-        <p class="subtitle">Studio Development</p>
-        <div class="info-section">
-            <h3>INFORMASI</h3>
-            <p><strong>WhatsApp:</strong> 085810526151</p>
-            <p><strong>Gopay:</strong> 0895340205302</p>
+    <header class="header">
+        <div class="container navbar">
+            <a href="#" class="nav-logo"><i class="fas fa-gamepad"></i> Nabila Shop</a>
+            <ul class="nav-menu">
+                <li><a href="#produk" class="nav-link">Katalog Produk</a></li>
+                <li><a href="#cara-pesan" class="nav-link">Cara Pesan</a></li>
+                <li><a href="#lokasi" class="nav-link">Lokasi Kami</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
         </div>
-        <div class="info-section api-management">
-            <h3>Manajemen Kunci API</h3>
-            <p>Masukkan semua kunci API Anda di sini. Kunci akan disimpan aman di browser Anda.</p>
-            <div class="input-group" style="margin-top:15px;">
-                <label for="stability-key">Kunci API Stability AI</label>
-                <input type="password" id="stability-key" placeholder="sk-...">
-            </div>
-            <div class="input-group">
-                <label for="runway-key">Kunci API RunwayML</label>
-                <input type="password" id="runway-key" placeholder="Kunci privat RunwayML">
-            </div>
-            <div class="input-group">
-                <label for="pixabay-key">Kunci API Pixabay</label>
-                <input type="password" id="pixabay-key" placeholder="Kunci Pixabay">
-            </div>
-            <button id="save-keys-btn">Simpan Semua Kunci</button>
-        </div>
-    </aside>
+    </header>
 
-    <main class="main-content">
-        <div class="welcome-bar"><marquee>✨ Selamat Datang di Nabila Ahmad Studio - Pusat Generator AI Anda ✨</marquee></div>
-        <header class="header"><h1>Multi-API <span>AI</span> Generator</h1></header>
+    <main>
+        <section class="hero container">
+            <h1>Top Up Game Instan & Terpercaya</h1>
+            <p>Dapatkan diamond untuk Mobile Legends, Free Fire, dan game favoritmu lainnya dengan harga terbaik di Jakarta Barat. Proses kilat, transaksi aman, 100% legal.</p>
+            <a href="#produk" class="btn btn-primary">Lihat Katalog Lengkap</a>
+        </section>
 
-        <div class="generator-container">
-            <div class="ai-generator">
-                <h3>Buat atau Cari Gambar</h3>
-                <div class="input-group">
-                    <label for="ai-service-select">Pilih Layanan</label>
-                    <select id="ai-service-select">
-                        <option value="">-- Pilih Layanan AI --</option>
-                        <option value="stability">Stability AI (Image Generation)</option>
-                        <option value="runwayml">RunwayML (Image Generation)</option>
-                        <option value="pixabay">Pixabay (Image Search)</option>
-                    </select>
+        <section id="produk" class="section section-dark">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-gem"></i> Katalog Produk Lengkap</h2>
+                
+                <h3 class="product-category-title">💎PROMO! Mlbb FLASH SALE 🔥</h3>
+                <div class="product-grid">
+                    <div class="product-card"><h4 class="product-title">💎 100 Diamond</h4><p class="product-price">Rp. 20.400</p><button class="btn-order" onclick="orderProduct('MLBB Flash Sale', '100 Diamond', 'Rp. 20.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 300 Diamond</h4><p class="product-price">Rp. 60.400</p><button class="btn-order" onclick="orderProduct('MLBB Flash Sale', '300 Diamond', 'Rp. 60.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 500 Diamond</h4><p class="product-price">Rp. 105.700</p><button class="btn-order" onclick="orderProduct('MLBB Flash Sale', '500 Diamond', 'Rp. 105.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 1000 Diamond</h4><p class="product-price">Rp. 203.000</p><button class="btn-order" onclick="orderProduct('MLBB Flash Sale', '1000 Diamond', 'Rp. 203.000')">Pesan</button></div>
                 </div>
-                <div class="input-group">
-                    <label for="ai-prompt">Deskripsi Gambar (Prompt) atau Kata Kunci Pencarian</label>
-                    <textarea id="ai-prompt" placeholder="Contoh: a majestic lion in a futuristic city, cinematic lighting"></textarea>
-                </div>
-                <button id="generate-ai-btn">Mulai!</button>
-                <p id="ai-status"></p>
-            </div>
 
-            <div class="controls">
-                <h3>1. Pengaturan Konversi</h3>
-                <div class="input-group">
-                    <label for="spritesheet-file">Unggah Spritesheet (atau buat dengan AI)</label>
-                    <input type="file" id="spritesheet-file" accept="image/*">
+                <h3 class="product-category-title">✨PROMO! INSTAN Mlbb Pasti UNTUNG ! 🛒</h3>
+                <div class="product-grid">
+                    <div class="product-card"><h4 class="product-title">💎 3 Diamond</h4><p class="product-price">Rp. 1.200</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '3 Diamond', 'Rp. 1.200')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 5 Diamond</h4><p class="product-price">Rp. 1.500</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '5 Diamond', 'Rp. 1.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 12 Diamond</h4><p class="product-price">Rp. 3.400</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '12 Diamond', 'Rp. 3.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 19 Diamond</h4><p class="product-price">Rp. 5.300</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '19 Diamond', 'Rp. 5.300')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 28 Diamond</h4><p class="product-price">Rp. 7.600</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '28 Diamond', 'Rp. 7.600')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 44 Diamond</h4><p class="product-price">Rp. 11.400</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '44 Diamond', 'Rp. 11.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 59 Diamond</h4><p class="product-price">Rp. 15.200</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '59 Diamond', 'Rp. 15.200')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 85 Diamond</h4><p class="product-price">Rp. 21.850</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '85 Diamond', 'Rp. 21.850')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 170 Diamond</h4><p class="product-price">Rp. 43.800</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '170 Diamond', 'Rp. 43.800')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 240 Diamond</h4><p class="product-price">Rp. 61.800</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '240 Diamond', 'Rp. 61.800')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 296 Diamond</h4><p class="product-price">Rp. 76.000</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '296 Diamond', 'Rp. 76.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 408 Diamond</h4><p class="product-price">Rp. 104.000</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '408 Diamond', 'Rp. 104.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 568 Diamond</h4><p class="product-price">Rp. 142.500</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '568 Diamond', 'Rp. 142.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 875 Diamond</h4><p class="product-price">Rp. 218.500</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '875 Diamond', 'Rp. 218.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 2010 Diamond</h4><p class="product-price">Rp. 475.000</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '2010 Diamond', 'Rp. 475.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 4830 Diamond</h4><p class="product-price">Rp. 1.140.000</p><button class="btn-order" onclick="orderProduct('MLBB Instan', '4830 Diamond', 'Rp. 1.140.000')">Pesan</button></div>
                 </div>
-                <div class="input-group"><label for="cols">Jumlah Kolom (Frames)</label><input type="number" id="cols" value="1"></div>
-                <div class="input-group"><label for="rows">Jumlah Baris</label><input type="number" id="rows" value="1"></div>
-                <div class="input-group"><label for="frame-delay">Kecepatan (ms per frame)</label><input type="number" id="frame-delay" value="100"></div>
-                <button id="generate-gif-btn" disabled>2. Buat GIF</button>
-            </div>
 
-            <div class="preview">
-                <h3>3. Hasil</h3>
-                <div class="preview-area" id="preview-area"><img id="gif-preview" src="" alt="Hasil akan muncul di sini"></div>
-                <p id="status">Pilih layanan AI atau unggah gambar untuk memulai.</p>
-                <div class="progress-container" id="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
-                <a id="download-link" href="#" download="animation.gif"><button id="download-btn" style="display: none;">Unduh GIF</button></a>
+                <h3 class="product-category-title">🏁PROMO! REGULER Profit TOPUP Mlbb 🛒</h3>
+                <div class="product-grid">
+                    <div class="product-card"><h4 class="product-title">💎 3 Diamond</h4><p class="product-price">Rp. 3.200</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '3 Diamond', 'Rp. 3.200')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 5 Diamond</h4><p class="product-price">Rp. 3.600</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '5 Diamond', 'Rp. 3.600')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 10 Diamond</h4><p class="product-price">Rp. 4.900</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '10 Diamond', 'Rp. 4.900')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 12 Diamond</h4><p class="product-price">Rp. 6.700</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '12 Diamond', 'Rp. 6.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 14 Diamond</h4><p class="product-price">Rp. 7.400</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '14 Diamond', 'Rp. 7.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 18 Diamond</h4><p class="product-price">Rp. 8.600</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '18 Diamond', 'Rp. 8.600')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 19 Diamond</h4><p class="product-price">Rp. 9.600</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '19 Diamond', 'Rp. 9.600')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 28 Diamond</h4><p class="product-price">Rp. 11.700</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '28 Diamond', 'Rp. 11.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 36 Diamond</h4><p class="product-price">Rp. 13.500</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '36 Diamond', 'Rp. 13.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 44 Diamond</h4><p class="product-price">Rp. 15.700</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '44 Diamond', 'Rp. 15.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 46 Diamond</h4><p class="product-price">Rp. 16.700</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '46 Diamond', 'Rp. 16.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 54 Diamond</h4><p class="product-price">Rp. 19.000</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '54 Diamond', 'Rp. 19.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 74 Diamond</h4><p class="product-price">Rp. 23.700</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '74 Diamond', 'Rp. 23.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 85 Diamond</h4><p class="product-price">Rp. 26.300</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '85 Diamond', 'Rp. 26.300')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 88 Diamond</h4><p class="product-price">Rp. 27.400</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '88 Diamond', 'Rp. 27.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 110 Diamond</h4><p class="product-price">Rp. 32.400</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '110 Diamond', 'Rp. 32.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 113 Diamond</h4><p class="product-price">Rp. 33.600</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '113 Diamond', 'Rp. 33.600')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 184 Diamond</h4><p class="product-price">Rp. 51.000</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '184 Diamond', 'Rp. 51.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 222 Diamond</h4><p class="product-price">Rp. 62.500</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '222 Diamond', 'Rp. 62.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 240 Diamond</h4><p class="product-price">Rp. 66.700</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '240 Diamond', 'Rp. 66.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 258 Diamond</h4><p class="product-price">Rp. 71.500</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '258 Diamond', 'Rp. 71.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 277 Diamond</h4><p class="product-price">Rp. 75.400</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '277 Diamond', 'Rp. 75.400')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 284 Diamond</h4><p class="product-price">Rp. 76.600</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '284 Diamond', 'Rp. 76.600')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 296 Diamond</h4><p class="product-price">Rp. 79.900</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '296 Diamond', 'Rp. 79.900')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 301 Diamond</h4><p class="product-price">Rp. 81.500</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '301 Diamond', 'Rp. 81.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 356 Diamond</h4><p class="product-price">Rp. 98.500</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '356 Diamond', 'Rp. 98.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 408 Diamond</h4><p class="product-price">Rp. 109.500</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '408 Diamond', 'Rp. 109.500')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 518 Diamond</h4><p class="product-price">Rp. 138.900</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '518 Diamond', 'Rp. 138.900')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 601 Diamond</h4><p class="product-price">Rp. 159.700</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '601 Diamond', 'Rp. 159.700')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 938 Diamond</h4><p class="product-price">Rp. 248.501</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '938 Diamond', 'Rp. 248.501')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 1159 Diamond</h4><p class="product-price">Rp. 298.900</p><button class="btn-order" onclick="orderProduct('MLBB Reguler', '1159 Diamond', 'Rp. 298.900')">Pesan</button></div>
+                </div>
+
+                <h3 class="product-category-title">📢PROMO! TOPUP Diamond Free Fire 💰🛒</h3>
+                <div class="product-grid">
+                    <div class="product-card"><h4 class="product-title">💎 5 Diamond</h4><p class="product-price">Rp. 1.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '5 Diamond', 'Rp. 1.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 12 Diamond</h4><p class="product-price">Rp. 2.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '12 Diamond', 'Rp. 2.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 50 Diamond</h4><p class="product-price">Rp. 8.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '50 Diamond', 'Rp. 8.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 70 Diamond</h4><p class="product-price">Rp. 10.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '70 Diamond', 'Rp. 10.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 140 Diamond</h4><p class="product-price">Rp. 20.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '140 Diamond', 'Rp. 20.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 355 Diamond</h4><p class="product-price">Rp. 50.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '355 Diamond', 'Rp. 50.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 720 Diamond</h4><p class="product-price">Rp. 100.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '720 Diamond', 'Rp. 100.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 1450 Diamond</h4><p class="product-price">Rp. 200.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '1450 Diamond', 'Rp. 200.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 2180 Diamond</h4><p class="product-price">Rp. 300.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '2180 Diamond', 'Rp. 300.000')">Pesan</button></div>
+                    <div class="product-card"><h4 class="product-title">💎 3640 Diamond</h4><p class="product-price">Rp. 500.000</p><button class="btn-order" onclick="orderProduct('Free Fire', '3640 Diamond', 'Rp. 500.000')">Pesan</button></div>
+                </div>
             </div>
-        </div>
+        </section>
+        
+        <section id="cara-pesan" class="section">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-tasks"></i> 3 Langkah Mudah Pemesanan</h2>
+                <div class="order-steps">
+                    <div class="step"><div class="step-icon"><i class="fas fa-mouse-pointer"></i></div><h3>1. Pilih Produk</h3><p>Pilih nominal top up yang Anda inginkan, lalu klik tombol 'Pesan'.</p></div>
+                    <div class="step"><div class="step-icon"><i class="fab fa-whatsapp"></i></div><h3>2. Isi Data & Kirim</h3><p>Isi ID Game Anda pada notifikasi yang muncul, lalu Anda akan diarahkan ke WhatsApp untuk mengirim pesanan.</p></div>
+                    <div class="step"><div class="step-icon"><i class="fas fa-rocket"></i></div><h3>3. Proses & Selesai</h3><p>Lakukan pembayaran sesuai instruksi admin dan diamond akan langsung masuk ke akun Anda!</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lokasi" class="section section-dark">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Kunjungi Toko Kami</h2>
+                <div class="location-content">
+                    <div class="location-details">
+                        <h3>Alamat Lengkap</h3>
+                        <p><strong>Jl. Jaya 25, RT.1/RW.1, Cengkareng Barat, Kecamatan Cengkareng, Kota Jakarta Barat, 11730</strong></p>
+                        <h3>Patokan</h3>
+                        <p>Lokasi kami sangat mudah ditemukan, berada di dekat <strong>SMP Negeri 249 Jakarta</strong>.</p>
+                        <h3>Metode Pembayaran</h3>
+                        <p>Kami menerima pembayaran melalui <strong>GOPAY (0895340205302)</strong> atau bayar tunai di tempat.</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.820301099238!2d106.7335608747498!3d-6.154687393833216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f7c34533f563%3A0x3b1c534c058448de!2sJl.%20Jaya%2025%2C%20RT.1%2FRW.1%2C%20Cengkareng%20Bar.%2C%20Kecamatan%20Cengkareng%2C%20Kota%20Jakarta%20Barat%2C%20Daerah%20Khusus%20Ibukota%20Jakarta%2011730!5e0!3m2!1sid!2sid!4v1722496538053!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     
-    <script src="https://cdn.jsdelivr.net/npm/gif.js/dist/gif.js"></script>
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="nav-logo"><i class="fas fa-gamepad"></i> Nabila Shop</a>
+            <p>© 2025 Nabila Shop. Semua Hak Cipta Dilindungi.<br>Pusat Top Up Game Premium di Cengkareng, Jakarta Barat.</p>
+        </div>
+    </footer>
+
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- DOM Elements ---
-        const elements = {
-            stabilityKey: document.getElementById('stability-key'),
-            runwayKey: document.getElementById('runway-key'),
-            pixabayKey: document.getElementById('pixabay-key'),
-            saveKeysBtn: document.getElementById('save-keys-btn'),
-            aiServiceSelect: document.getElementById('ai-service-select'),
-            aiPrompt: document.getElementById('ai-prompt'),
-            generateAiBtn: document.getElementById('generate-ai-btn'),
-            aiStatus: document.getElementById('ai-status'),
-            fileInput: document.getElementById('spritesheet-file'),
-            colsInput: document.getElementById('cols'),
-            rowsInput: document.getElementById('rows'),
-            delayInput: document.getElementById('frame-delay'),
-            generateGifBtn: document.getElementById('generate-gif-btn'),
-            statusEl: document.getElementById('status'),
-            gifPreview: document.getElementById('gif-preview'),
-            previewArea: document.getElementById('preview-area'),
-            downloadBtn: document.getElementById('download-btn'),
-            downloadLink: document.getElementById('download-link'),
-            progressContainer: document.getElementById('progress-container'),
-            progressBar: document.getElementById('progress-bar'),
-        };
-        let spritesheetImage = null;
+        function orderProduct(category, productName, productPrice) {
+            const adminPhone = '6285810526151'; // Ganti dengan nomor WA Admin yang benar
+            const game = category.includes('MLBB') ? 'Mobile Legends' : 'Free Fire';
 
-        // --- API Key Management ---
-        const apiKeys = {
-            stability: 'stabilityApiKey',
-            runwayml: 'runwaymlApiKey',
-            pixabay: 'pixabayApiKey'
-        };
-
-        const saveKeys = () => {
-            localStorage.setItem(apiKeys.stability, elements.stabilityKey.value.trim());
-            localStorage.setItem(apiKeys.runwayml, elements.runwayKey.value.trim());
-            localStorage.setItem(apiKeys.pixabay, elements.pixabayKey.value.trim());
-            alert('Semua kunci API berhasil disimpan!');
-        };
-
-        const loadKeys = () => {
-            elements.stabilityKey.value = localStorage.getItem(apiKeys.stability) || '';
-            elements.runwayKey.value = localStorage.getItem(apiKeys.runwayml) || '';
-            elements.pixabayKey.value = localStorage.getItem(apiKeys.pixabay) || '';
-        };
-
-        elements.saveKeysBtn.addEventListener('click', saveKeys);
-        loadKeys();
-
-        // --- Image Handling ---
-        const updateImageSource = (src) => {
-            spritesheetImage = new Image();
-            // Penting: Set crossOrigin untuk menghindari error CORS saat gambar dari URL eksternal dimasukkan ke canvas
-            spritesheetImage.crossOrigin = "Anonymous";
-            spritesheetImage.onload = () => {
-                elements.generateGifBtn.disabled = false;
-                elements.statusEl.textContent = 'Gambar siap. Atur parameter lalu klik "Buat GIF".';
-                // Tampilkan gambar yang baru dibuat di area preview juga
-                elements.gifPreview.src = spritesheetImage.src; 
-                elements.downloadBtn.style.display = 'none';
-            };
-            spritesheetImage.onerror = () => {
-                setAiStatus('Gagal memuat gambar dari sumber eksternal. Periksa URL atau coba lagi.', true);
-            }
-            spritesheetImage.src = src;
-        };
-
-        elements.fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => updateImageSource(event.target.result);
-                reader.readAsDataURL(file);
-            }
-        });
-        
-        // --- AI & Search Logic ---
-        const setAiStatus = (message, isError = false) => {
-            elements.aiStatus.textContent = message;
-            elements.aiStatus.style.color = isError ? 'var(--error-color)' : 'var(--success-color)';
-        };
-
-        elements.generateAiBtn.addEventListener('click', async () => {
-            const service = elements.aiServiceSelect.value;
-            const prompt = elements.aiPrompt.value.trim();
-            if (!service) { alert('Silakan pilih layanan AI terlebih dahulu.'); return; }
-            if (!prompt) { alert('Prompt atau kata kunci tidak boleh kosong.'); return; }
-
-            setAiStatus('Memproses...', false);
-            elements.generateAiBtn.disabled = true;
-
-            try {
-                switch (service) {
-                    case 'stability':
-                        await callStabilityAPI(prompt);
-                        break;
-                    case 'runwayml':
-                        // Placeholder, karena API RunwayML Text-to-Image tidak se-straightforward Stability
-                        await callRunwayAPI(prompt);
-                        break;
-                    case 'pixabay':
-                        await callPixabayAPI(prompt);
-                        break;
-                }
-            } catch (error) {
-                setAiStatus(error.message, true);
-            } finally {
-                elements.generateAiBtn.disabled = false;
-            }
-        });
-
-        async function callStabilityAPI(prompt) {
-            const apiKey = localStorage.getItem(apiKeys.stability);
-            if (!apiKey) throw new Error('Kunci API Stability AI belum diatur.');
-            
-            setAiStatus('Menghubungi Stability AI...', false);
-            const response = await fetch('https://api.stability.ai/v1/generation/stable-diffusion-v1-6/text-to-image', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
-                    text_prompts: [{ "text": prompt }],
-                    cfg_scale: 7,
-                    height: 512,
-                    width: 512,
-                    steps: 30,
-                    samples: 1,
-                }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(`Stability AI Error: ${errorData.message || response.statusText}`);
-            }
-
-            const data = await response.json();
-            const imageUrl = `data:image/png;base64,${data.artifacts[0].base64}`;
-            updateImageSource(imageUrl);
-            setAiStatus('Gambar dari Stability AI berhasil dibuat!', false);
-        }
-        
-        async function callRunwayAPI(prompt) {
-            // Catatan: API RunwayML lebih kompleks dan seringkali untuk video (Gen-1/Gen-2).
-            // Fungsionalitas Text-to-Image mereka mungkin tidak tersedia via API publik sederhana.
-            // Ini adalah placeholder untuk menunjukkan bagaimana pemanggilan bisa dilakukan.
-            const apiKey = localStorage.getItem(apiKeys.runwayml);
-            if (!apiKey) throw new Error('Kunci API RunwayML belum diatur.');
-            
-            setAiStatus('RunwayML API tidak tersedia untuk integrasi sederhana saat ini.', true);
-            // Kode pemanggilan API RunwayML akan ditempatkan di sini jika tersedia.
-            // Contoh: await fetch('https://api.runwayml.com/...', { ... });
-        }
-
-        async function callPixabayAPI(query) {
-            const apiKey = localStorage.getItem(apiKeys.pixabay);
-            if (!apiKey) throw new Error('Kunci API Pixabay belum diatur.');
-
-            setAiStatus('Mencari di Pixabay...', false);
-            const response = await fetch(`https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(query)}&image_type=photo&safesearch=true`);
-            
-            if (!response.ok) throw new Error(`Pixabay Error: ${response.statusText}`);
-            
-            const data = await response.json();
-            if (data.totalHits === 0) throw new Error('Tidak ada gambar yang ditemukan di Pixabay untuk kata kunci tersebut.');
-
-            const imageUrl = data.hits[0].largeImageURL; // Ambil gambar pertama dengan resolusi besar
-            updateImageSource(imageUrl); // Langsung gunakan URL
-            setAiStatus(`Gambar "${data.hits[0].tags}" ditemukan di Pixabay!`, false);
-        }
-
-        // --- GIF Generation ---
-        elements.generateGifBtn.addEventListener('click', () => {
-            if (!spritesheetImage || !spritesheetImage.complete || spritesheetImage.naturalWidth === 0) {
-                alert('Gambar spritesheet belum siap atau rusak. Silakan unggah atau buat gambar baru.');
+            const userId = prompt(`Masukkan ID Akun ${game} Anda:`);
+            if (!userId) {
+                alert('Pemesanan dibatalkan. Anda harus mengisi ID Akun.');
                 return;
             }
-            const cols = parseInt(elements.colsInput.value, 10), rows = parseInt(elements.rowsInput.value, 10), frameDelay = parseInt(elements.delayInput.value, 10);
-            if(isNaN(cols) || isNaN(rows) || isNaN(frameDelay) || cols<=0 || rows<=0 || frameDelay<=0){ alert('Parameter konversi tidak valid.'); return; }
-            
-            elements.statusEl.textContent = 'Memproses... (0%)';
-            elements.generateGifBtn.disabled = true;
-            elements.downloadBtn.style.display = 'none';
-            elements.progressContainer.style.display = 'block';
-            elements.progressBar.style.width = '0%';
-            
-            const gif = new GIF({ workers: 2, quality: 10, workerScript: 'https://cdn.jsdelivr.net/npm/gif.js/dist/gif.worker.js' });
-            const frameWidth = spritesheetImage.width / cols, frameHeight = spritesheetImage.height / rows;
-            const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
-            canvas.width = frameWidth; canvas.height = frameHeight;
-            
-            for(let i = 0; i < rows; i++){ for(let j = 0; j < cols; j++){ ctx.clearRect(0, 0, frameWidth, frameHeight); ctx.drawImage(spritesheetImage, j * frameWidth, i * frameHeight, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight); gif.addFrame(ctx, { copy: true, delay: frameDelay }); } }
-            
-            gif.on('progress', p => { const percentage = Math.round(p * 100); elements.statusEl.textContent = `Memproses... (${percentage}%)`; elements.progressBar.style.width = percentage + '%'; });
-            gif.on('finished', blob => { const url = URL.createObjectURL(blob); elements.gifPreview.src = url; elements.downloadLink.href = url; elements.statusEl.textContent = 'GIF berhasil dibuat!'; elements.downloadBtn.style.display = 'block'; elements.generateGifBtn.disabled = false; elements.progressContainer.style.display = 'none'; });
-            gif.render();
-        });
-    });
+
+            let zoneId = '';
+            if (game === 'Mobile Legends') {
+                zoneId = prompt(`Masukkan Zone ID (Contoh: 1234). Lewati jika tidak ada.`);
+                zoneId = zoneId ? ` (${zoneId})` : '';
+            }
+
+            const message = `Halo Admin Nabila Shop, saya mau pesan:\n\n` +
+                          `*Kategori:* ${category}\n` +
+                          `*Produk:* ${productName}\n` +
+                          `*Harga:* ${productPrice}\n` +
+                          `*ID Akun:* ${userId}${zoneId}\n\n` +
+                          `Mohon info untuk proses pembayarannya. Terima kasih!`;
+
+            const whatsappURL = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
     </script>
 </body>
-</html>```
-
-### **Cara Menggunakan Aplikasi Baru Ini**
-
-1.  **Dapatkan Kunci API:**
-    *   **Stability AI:** Buat akun di [DreamStudio (platform Stability AI)](https://platform.stability.ai/), lalu pergi ke bagian "API Keys" untuk menyalin kunci Anda (biasanya diawali dengan `sk-...`).
-    *   **RunwayML:** Dapatkan kunci API dari pengaturan akun Anda di RunwayML. (*Catatan: API Text-to-Image RunwayML tidak sejelas Stability, jadi fungsionalitasnya di skrip ini bersifat placeholder*).
-    *   **Pixabay:** Buat akun gratis di [Pixabay](https://pixabay.com/api/docs/), lalu Anda akan menemukan kunci API Anda di halaman dokumentasi tersebut.
-
-2.  **Simpan Kunci di Sidebar:**
-    *   Buka aplikasi Anda yang sudah di-deploy.
-    *   Di sidebar kiri, di bawah **"Manajemen Kunci API"**, masukkan setiap kunci yang Anda miliki ke dalam kolom yang sesuai.
-    *   Klik tombol **"Simpan Semua Kunci"**.
-
-3.  **Pilih Layanan & Buat Gambar:**
-    *   Di bagian tengah, pilih layanan yang ingin Anda gunakan dari **menu dropdown** (misalnya, "Stability AI").
-    *   Tulis *prompt* atau deskripsi gambar yang Anda inginkan.
-    *   Klik tombol **"Mulai!"**.
-
-4.  **Buat GIF:**
-    *   Setelah gambar muncul, atur jumlah kolom, baris, dan kecepatan di bagian **"Pengaturan Konversi"**.
-    *   Klik **"Buat GIF"**.
-    *   Hasilnya akan muncul dan siap untuk Anda unduh.
+</html>
